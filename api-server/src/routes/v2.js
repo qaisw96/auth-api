@@ -5,7 +5,8 @@ const express = require('express');
 const Collection = require('../models/data-collection.js');
 const basicAuth = require('../../../auth-server/src/auth/middleware/basic')
 const bearerAuth = require('../../../auth-server/src/auth/middleware/bearer')
-const permissions = require('../../../auth-server/src/auth/middleware/acl')
+const permissions = require('../../../auth-server/src/auth/middleware/acl');
+const bearer = require('../../../auth-server/src/auth/middleware/bearer');
 
 
 const router = express.Router();
@@ -31,8 +32,8 @@ router.param('model', (req, res, next) => {
   }
 });
 
-router.get('/:model',   handleGetAll);
-router.get('/:model/:id', handleGetOne);
+router.get('/:model', bearerAuth,   handleGetAll);
+router.get('/:model/:id', bearerAuth, handleGetOne);
 router.post('/:model', bearerAuth, permissions('create'), handleCreate);
 router.put('/:model/:id', bearerAuth, permissions('update'), handleUpdate);
 router.delete('/:model/:id', bearerAuth, permissions('delete'), handleDelete);

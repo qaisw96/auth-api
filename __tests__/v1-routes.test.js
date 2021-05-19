@@ -51,7 +51,6 @@ describe('1. V1 (Unauthenticated API) routes', () => {
         const res = await mockServer.get(`/api/v1/food/${id}`)
         const item = res.body
         
-        // console.log('from fff ', res.body);
         expect(item.name).toBe(foodObj.name)
         expect(item.calories).toBe(foodObj.calories)
         expect(item.type).toBe(foodObj.type)
@@ -61,11 +60,8 @@ describe('1. V1 (Unauthenticated API) routes', () => {
     })
     
     it('4. PUT /api/v1/:model/ID returns a single, updated item by ID', async () => {
-        const updatedObj =  {
-            name: "orange",
-            calories: 3,
-            type: "FRUIT"
-        }
+        const updatedObj =  { name: "orange", calories: 3, type: "FRUIT" }
+
         const res = await mockServer.put(`/api/v1/food/${id}`).send(updatedObj)
         const item = res.body
         
