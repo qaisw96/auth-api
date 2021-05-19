@@ -18,7 +18,7 @@ users.virtual('token').get(function () {
   let tokenObject = {
     username: this.username,
   }
-  return jwt.sign(tokenObject, process.env.SECRET)
+  return jwt.sign(tokenObject, process.env.SECRET || 'secret')
 });
 
 users.virtual('capabilities').get(function () {
@@ -47,7 +47,7 @@ users.statics.authenticateBasic = async function (username, password) {
 // BEARER AUTH
 users.statics.authenticateWithToken = async function (token) {
   try {
-    const parsedToken = jwt.verify(token, process.env.SECRET);
+    const parsedToken = jwt.verify(token, process.env.SECRET || 'secret');
     const user = this.findOne({ username: parsedToken.username })
     if (user) { return user; }
     throw new Error("User Not Found");

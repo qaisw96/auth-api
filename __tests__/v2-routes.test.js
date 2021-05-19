@@ -1,5 +1,5 @@
 require('dotenv').config()
-const SECRET = process.env.SECRET
+const SECRET = process.env.SECRET || 'secret'
 const jwt = require('jsonwebtoken')
 const supergoose = require('@code-fellows/supergoose');
 const server = require('../auth-server/src/server')
